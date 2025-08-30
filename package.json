@@ -1,0 +1,18 @@
+{
+  "name": "Limvzx-Dominc-bot",
+  "version": "1.0.0",
+  "description": "Telegram bot multifungsi: website builder, referral, premium, broadcast",
+  "main": "Limvzx.js",
+  "scripts": {
+    "start": "node Limvzx.js"
+  },
+  "keywords": ["telegram", "bot", "vercel", "referral", "premium"],
+  "author": "Limvzx",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "fs-extra": "^11.1.1",
+    "moment": "^2.29.4",
+    "node-telegram-bot-api": "^0.61.0"
+  }
+}

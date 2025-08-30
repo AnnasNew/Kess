@@ -3,300 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JUN WEB BOT</title>
+    <title>Limvzx Deployer Bot</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        /* =============================================== */
-        /* |              CSS PREMIUM FULL               | */
-        /* =============================================== */
-        :root {
-            --bg-color: #1a1a1a;
-            --container-bg: #222;
-            --card-bg: #2c2c2c;
-            --primary-color: #4CAF50;
-            --secondary-color: #00BFFF;
-            --text-color: #e0e0e0;
-            --input-border: #444;
-            --shadow-color: rgba(0, 0, 0, 0.4);
-            --transition-speed: 0.3s;
-        }
-
-        /* Base & Typography */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+        
         body {
-            background: var(--bg-color);
-            color: var(--text-color);
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #0a0a0a, #111827);
+            color: #e5e7eb;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 20px;
-            overflow-x: hidden;
-            background-image: radial-gradient(circle, #333 1px, transparent 1px);
-            background-size: 20px 20px;
-        }
-
-        /* Container & Layout */
-        .main-container {
-            width: 100%;
-            max-width: 900px;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-            animation: fadeIn 1s ease-in-out;
-            transform: translateY(20px);
-            opacity: 0;
-            animation-fill-mode: forwards;
         }
         
-        @keyframes fadeIn {
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .header {
-            text-align: center;
-            padding: 30px;
-            background: linear-gradient(135deg, #222, #333);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px var(--shadow-color);
-        }
-
-        .header h1 {
-            font-size: 2.5em;
-            font-weight: 700;
-            color: var(--primary-color);
-            text-shadow: 0 0 15px rgba(76, 175, 80, 0.6);
-            margin-bottom: 10px;
-        }
-
-        .header p {
-            font-size: 1.1em;
-            color: #ccc;
-            opacity: 0.8;
-        }
-
-        /* Card-based UI */
         .card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 8px 25px var(--shadow-color);
-            transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+            background: #1f2937;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border: 1px solid #374151;
+            padding: 2.5rem;
+            max-width: 500px;
+            width: 100%;
+            transition: all 0.3s ease-in-out;
         }
 
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 35px var(--shadow-color);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
         }
 
-        /* Form Styling */
-        .form-group {
-            margin-bottom: 20px;
-            position: relative;
+        .glowing-text {
+            text-shadow: 0 0 5px #60a5fa, 0 0 10px #60a5fa, 0 0 15px #60a5fa;
+            animation: glow 1.5s ease-in-out infinite alternate;
         }
         
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #aaa;
-            font-size: 0.9em;
-            transition: color var(--transition-speed) ease;
-        }
-        
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 15px 20px;
-            border-radius: 10px;
-            border: 2px solid var(--input-border);
-            background-color: #383838;
-            color: var(--text-color);
-            font-size: 1em;
-            transition: all var(--transition-speed) ease;
-        }
-
-        .form-group input:focus, .form-group select:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
-            background-color: #404040;
-        }
-
-        /* Button Styling */
-        .btn {
-            width: 100%;
-            padding: 15px 20px;
-            border-radius: 10px;
-            border: none;
-            cursor: pointer;
-            font-size: 1.1em;
-            font-weight: bold;
-            text-transform: uppercase;
-            transition: all var(--transition-speed) ease;
-            letter-spacing: 1px;
-            background: var(--primary-color);
-            color: #fff;
-            box-shadow: 0 5px 20px rgba(76, 175, 80, 0.5);
-        }
-
-        .btn:hover {
-            background: #45a049;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.7);
-        }
-
-        /* Message Box */
-        .message-box {
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            margin-top: 25px;
-            font-weight: 600;
-            transition: all var(--transition-speed) ease;
-            animation: slideInUp 0.5s ease-out;
-        }
-        
-        .message-box.success {
-            background-color: #2e7d32;
-            color: #e8f5e9;
-        }
-
-        .message-box.error {
-            background-color: #c62828;
-            color: #ffebee;
-        }
-
-        @keyframes slideInUp {
+        @keyframes glow {
             from {
-                transform: translateY(20px);
-                opacity: 0;
+                text-shadow: 0 0 5px #60a5fa, 0 0 10px #60a5fa, 0 0 15px #60a5fa;
             }
             to {
-                transform: translateY(0);
-                opacity: 1;
+                text-shadow: 0 0 10px #3b82f6, 0 0 20px #3b82f6, 0 0 30px #3b82f6;
             }
+        }
+
+        .premium-badge {
+            background: linear-gradient(45deg, #fde047, #facc15);
+            color: #854d0e;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .upload-area {
+            border: 2px dashed #4b5563;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .upload-area:hover {
+            border-color: #60a5fa;
+            background: #374151;
         }
     </style>
 </head>
 <body>
-    <div class="main-container">
-        <header class="header">
-            <h1>JUN WEB BOT</h1>
-            <p>Antarmuka web premium untuk mengontrol userbot Telegram Anda.</p>
-        </header>
-
-        <div class="card">
-            <h2>Pembuatan Akun Panel</h2>
-            <form id="panel-form" onsubmit="event.preventDefault(); sendCommand('panel');">
-                <div class="form-group">
-                    <label for="username">Nama Pengguna Panel:</label>
-                    <input type="text" id="username" placeholder="cth: junuser" required>
-                </div>
-                <div class="form-group">
-                    <label for="telegram_id">ID Telegram Pengguna:</label>
-                    <input type="text" id="telegram_id" placeholder="cth: 123456789" required>
-                </div>
-                <div class="form-group">
-                    <label for="command">Pilih Paket:</label>
-                    <select id="command">
-                        <option value=".1gb">Paket 1GB RAM & DISK (.1gb)</option>
-                        <option value=".2gb">Paket 2GB RAM & DISK (.2gb)</option>
-                        <option value=".3gb">Paket 3GB RAM & DISK (.3gb)</option>
-                        <option value=".4gb">Paket 4GB RAM & DISK (.4gb)</option>
-                        <option value=".5gb">Paket 5GB RAM & DISK (.5gb)</option>
-                        <option value=".unli">Paket UNLIMITED (.unli)</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn">Buat Akun</button>
-            </form>
-            <div id="panel-message" class="message-box" style="display:none;"></div>
+    <div class="card">
+        <div class="flex flex-col items-center mb-6">
+            <h1 class="text-4xl font-bold mb-2 glowing-text">Limvzx Deployer</h1>
+            <span class="premium-badge">PREMIUM</span>
         </div>
 
-        <div class="card">
-            <h2>Fitur Lainnya</h2>
-            <p style="margin-bottom: 20px; opacity: 0.8;">Fitur lain dari bot akan muncul di sini. Untuk saat ini, Anda dapat menjalankan perintah dasar.</p>
-            <div class="form-group">
-                <button onclick="sendCommand('other', '.listserver')" class="btn" style="background-color: #4CAF50;">Lihat Daftar Server</button>
-            </div>
-            <div class="form-group">
-                <button onclick="sendCommand('other', '.listuser')" class="btn" style="background-color: #4CAF50;">Lihat Daftar Pengguna</button>
-            </div>
-        </div>
+        <p class="text-center text-gray-400 mb-8">Unggah file proyek Anda dan buat nama domain kustom.</p>
 
+        <form id="deployForm" class="space-y-6">
+            <div>
+                <label for="projectZip" class="block text-sm font-medium mb-2">File Proyek (.zip)</label>
+                <input type="file" id="projectZip" name="projectZip" accept=".zip" required 
+                       class="block w-full text-sm text-gray-300
+                              file:mr-4 file:py-2 file:px-4
+                              file:rounded-full file:border-0
+                              file:text-sm file:font-semibold
+                              file:bg-blue-600 file:text-white
+                              hover:file:bg-blue-700 cursor-pointer"/>
+            </div>
+            
+            <div>
+                <label for="domainName" class="block text-sm font-medium mb-2">Nama Domain</label>
+                <div class="relative">
+                    <input type="text" id="domainName" name="domainName" required 
+                           class="w-full px-4 py-2 rounded-md bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 pr-24" 
+                           placeholder="nama-proyek-anda">
+                    <span class="absolute right-0 top-0 mt-2 mr-3 text-gray-400">.vercel.app</span>
+                </div>
+            </div>
+            
+            <button type="submit" class="w-full py-3 px-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                Deploy Sekarang
+            </button>
+        </form>
+
+        <div id="status" class="mt-6 p-4 rounded-xl text-center hidden"></div>
     </div>
 
-    <script>
-        // ===============================================
-        // |              JAVASCRIPT UTAMA               |
-        // ===============================================
-        async function sendCommand(type, fixedCommand = null) {
-            const form = document.getElementById('panel-form');
-            const usernameInput = document.getElementById('username');
-            const telegramIdInput = document.getElementById('telegram_id');
-            const commandSelect = document.getElementById('command');
-            const messageDiv = document.getElementById('panel-message');
-
-            let command, username, telegram_id;
-
-            if (type === 'panel') {
-                username = usernameInput.value;
-                telegram_id = telegramIdInput.value;
-                command = commandSelect.value;
-            } else if (type === 'other') {
-                command = fixedCommand;
-                username = 'default';
-                telegram_id = '0';
-            }
-
-            if (!username || !telegram_id) {
-                messageDiv.textContent = 'Nama Pengguna dan ID Telegram harus diisi!';
-                messageDiv.className = 'message-box error';
-                messageDiv.style.display = 'block';
-                return;
-            }
-            
-            messageDiv.style.display = 'block';
-            messageDiv.textContent = 'Memproses permintaan...';
-            messageDiv.className = 'message-box'; // Hapus kelas sebelumnya
-
-            try {
-                const response = await fetch('/api/run_command', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ 
-                        command: command, 
-                        username: username, 
-                        telegram_id: telegram_id 
-                    })
-                });
-
-                const data = await response.json();
-                
-                messageDiv.textContent = data.message;
-                if (data.status === 'success') {
-                    messageDiv.className = 'message-box success';
-                    form.reset();
-                } else {
-                    messageDiv.className = 'message-box error';
-                }
-
-            } catch (error) {
-                messageDiv.textContent = 'Terjadi kesalahan pada koneksi: ' + error.message;
-                messageDiv.className = 'message-box error';
-            }
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
