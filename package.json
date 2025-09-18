@@ -10,7 +10,6 @@
     "axios": "^1.6.8",
     "express": "^4.19.2",
     "serverless-http": "^3.2.0",
-    "@whiskeysockets/baileys": "github:seiren-primrose/PL-Baileys",
     "fs": "latest",
     "chalk": "^4.1.2",
     "moment": "^2.29.1",
