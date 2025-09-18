@@ -8,10 +8,16 @@ const router = express.Router();
 
 app.use(express.json());
 
-router.get('/', (req, res) => {
+// Serve the HTML file directly for regular Node.js servers
+app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+// Use the router for both root and Netlify function paths
+app.use(router);
+app.use('/.netlify/functions/server', router);
+
+// WhatsApp checking API endpoint
 router.post('/check-whatsapp', async (req, res) => {
     const numbers = req.body.numbers;
     if (!Array.isArray(numbers)) {
@@ -47,5 +53,13 @@ router.post('/check-whatsapp', async (req, res) => {
     res.json(results);
 });
 
-app.use('/.netlify/functions/server', router);
+// This part is for running the server on a regular Node.js environment
+if (process.env.NODE_ENV !== 'production' || !process.env.LAMBDA_TASK_ROOT) {
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+        console.log(`Server is running at http://localhost:${PORT}`);
+    });
+}
+
+// Export the handler for Netlify serverless functions
 module.exports.handler = serverless(app);
