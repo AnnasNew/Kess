@@ -2,20 +2,55 @@ const express = require('express');
 const axios = require('axios');
 const path = require('path');
 const serverless = require('serverless-http');
-
 const app = express();
 const router = express.Router();
 
 app.use(express.json());
 
-// Serve the HTML file directly for regular Node.js servers
-app.get('/', (req, res) => {
+// Serve the HTML file directly
+router.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Use the router for both root and Netlify function paths
+// Use the router for both local server and Netlify function paths
 app.use(router);
 app.use('/.netlify/functions/server', router);
+
+// Core function to check a single WhatsApp number.
+const checkWhatsAppNumber = async (originalNumber) => {
+    let isRegistered = false;
+    let profilePicUrl = "https://i.ibb.co/pLgQkYp/wa-default-avatar.png";
+
+    // Normalize number to an internationally usable format
+    let cleanNumber = originalNumber.replace(/\D/g, '');
+
+    // Handle Indonesian numbers starting with '0'
+    if (cleanNumber.startsWith('0') && cleanNumber.length > 5) {
+        cleanNumber = '62' + cleanNumber.substring(1);
+    }
+    
+    // Add a check for valid length before making the request
+    if (cleanNumber.length < 9) {
+        return { originalNumber, isRegistered: false, profilePicUrl, error: "Nomor tidak valid." };
+    }
+
+    try {
+        const response = await axios.head(`https://wa.me/${cleanNumber}`, {
+            maxRedirects: 0,
+            timeout: 5000
+        });
+
+        isRegistered = (response.status === 200);
+    } catch (error) {
+        isRegistered = (error.response && error.response.status === 404) ? false : false;
+    }
+
+    return {
+        originalNumber,
+        isRegistered,
+        profilePicUrl
+    };
+};
 
 // WhatsApp checking API endpoint
 router.post('/check-whatsapp', async (req, res) => {
@@ -24,32 +59,7 @@ router.post('/check-whatsapp', async (req, res) => {
         return res.status(400).json({ error: 'Input harus berupa array nomor.' });
     }
 
-    const results = await Promise.all(numbers.map(async (originalNumber) => {
-        let isRegistered = false;
-        let profilePicUrl = "https://i.ibb.co/pLgQkYp/wa-default-avatar.png"; 
-
-        try {
-            let cleanNumber = originalNumber.replace(/\D/g, '');
-            if (cleanNumber.startsWith('0')) {
-                cleanNumber = '62' + cleanNumber.substring(1);
-            }
-            
-            const response = await axios.head(`https://wa.me/${cleanNumber}`, {
-                maxRedirects: 0,
-                timeout: 5000 
-            });
-            isRegistered = (response.status === 200);
-        } catch (error) {
-            isRegistered = (error.response && error.response.status === 404) ? false : false;
-        }
-
-        return {
-            originalNumber,
-            isRegistered,
-            profilePicUrl
-        };
-    }));
-
+    const results = await Promise.all(numbers.map(checkWhatsAppNumber));
     res.json(results);
 });
 
