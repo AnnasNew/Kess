@@ -2,9 +2,9 @@
   "name": "whatsapp-checker",
   "version": "1.0.0",
   "description": "Akurat WhatsApp Number Checker",
-  "main": "index.js",
+  "main": "./functions/index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node ./functions/index.js"
   },
   "dependencies": {
     "axios": "^1.6.8",
